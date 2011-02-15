@@ -30,8 +30,8 @@ GOFILES=Datasource.go \
 #PROTOPATH=../../org/esb/rpc/
 #GOFILES=net.go 
 
-CGO_LDFLAGS=-L../../../target/dependency/lib/ -L../../../build/src/org/esb/ -lavcodec -lavutil -lavformat -lavcore -lswscale
-CGO_CFLAGS=-I../../../target/dependency/include/
+CGO_LDFLAGS=-L$(FFMPEG_ROOT)/lib/ -lavcodec -lavutil -lavformat -lavcore -lswscale
+CGO_CFLAGS=-I$(FFMPEG_ROOT)/include/
 
 
 #include $(GOROOT)/src/pkg/goprotobuf.googlecode.com/hg/Make.protobuf
