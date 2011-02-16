@@ -4,7 +4,7 @@ import "log"
 import "strconv"
 import "fmt"
 import "unsafe"
-
+import "runtime"
 type coder struct {
   Parameter map[string]string
   Ctx _CodecContext
@@ -169,6 +169,7 @@ func(self* coder)prepare(){
 
     self.pre_allocated=false
     self.Ctx.ctx.codec_id=uint32(cid)
+    runtime.SetFinalizer(self, close_coder)
   }else{
     //c.pre_allocated=true
   }
@@ -211,4 +212,8 @@ func(self*coder)setCodecParams(){
     self.Ctx.ctx.time_base.num=1
     self.Ctx.ctx.time_base.den=self.Ctx.ctx.sample_rate
   }
+}
+
+func close_coder(c*coder){
+    c.Free()
 }

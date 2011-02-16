@@ -1,14 +1,14 @@
 package gmf
 
 import "unsafe"
-
+import "os"
 type DataSink struct{
   Locator MediaLocator;
   ctx * FormatContext
   Valid bool
 }
 
-func (src * DataSink) Connect() bool{
+func (src * DataSink) Connect() os.Error{
   src.Valid=false
   src.ctx=avformat_alloc_context();
   format:=av_guess_format(src.Locator.Format,src.Locator.Filename)
@@ -17,7 +17,7 @@ func (src * DataSink) Connect() bool{
   result:=url_fopen(src.ctx, src.Locator.Filename);
 
   if(result!=0){
-    return src.Valid
+    return os.ErrorString("file not opened")
   }
   src.ctx.ctx.preload=500000
   src.ctx.ctx.max_delay=700000
@@ -26,15 +26,19 @@ func (src * DataSink) Connect() bool{
   src.ctx.ctx.mux_rate=0
   src.ctx.ctx.packet_size=0
   src.Valid=true
-  return src.Valid;
+  return nil;
 }
 
-func (src * DataSink) Disconnect() bool{
+func (src * DataSink) Disconnect() os.Error{
   if(src.Valid){
     url_fclose(src.ctx);
   }
   av_free_format_context(src.ctx)
-  return true;
+  return nil;
+}
+
+func (src * DataSink) GetLocator() MediaLocator{
+  return src.Locator;
 }
 
 func NewDatasink(loc MediaLocator)*DataSink{

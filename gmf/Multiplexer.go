@@ -12,7 +12,7 @@ type Multiplexer struct{
 func(self * Multiplexer)AddTrack(enc * Encoder)*Track{
     if(self.ch==nil){
 	self.ch=make(chan Packet)
-        self.tracks=make([]Track, 5)
+        self.tracks=make([]Track, 20)
     }
 
     result:=Track{av_new_stream(self.Ds.ctx,self.stream_count),self.ch,0}
@@ -23,9 +23,9 @@ func(self * Multiplexer)AddTrack(enc * Encoder)*Track{
     result.sample_aspect_ratio=enc.Ctx.ctx.sample_aspect_ratio
     //result.time_base.num=1//enc.Ctx.ctx.time_base.den
     //result.time_base.den=25//enc.Ctx.ctx.time_base.num
-    log.Printf("TrackData TimeBase %d/%d",result.time_base.num,result.time_base.den)
+    //log.Printf("TrackData TimeBase %d/%d",result.time_base.num,result.time_base.den)
 
-    log.Printf("TrackData %s",result)
+    //log.Printf("TrackData %s",result)
     self.tracks[self.stream_count]=result
     self.stream_count++
     return &result
@@ -35,10 +35,11 @@ func(self * Multiplexer)AddTrack(enc * Encoder)*Track{
 
 func(self * Multiplexer)Start(){
     av_write_header(self.Ds.ctx)
-    dump_format(self.Ds.ctx)
-    for i:=0;i<self.stream_count;i++ {
+    //dump_format(self.Ds.ctx)
+    /*for i:=0;i<self.stream_count;i++ {
         log.Printf("Track %s",self.tracks[i].String())
-    }
+    }*/
+    go func(){
     for (true) {
 	if(closed(self.ch)){
 	    println("channel closed")
@@ -85,6 +86,7 @@ func(self * Multiplexer)Start(){
 	//println("frame written")
     }
     log.Printf("Multiplexer End")
+    }()
 }
 
 func(self * Multiplexer)Stop(){

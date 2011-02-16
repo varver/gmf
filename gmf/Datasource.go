@@ -1,41 +1,37 @@
 package gmf
 
-
+import "os"
 
 type DataSource struct{
-  loc MediaLocator;
+  Locator MediaLocator;
   ctx * FormatContext
   valid bool
 }
 
 
-func (src * DataSource) Connect() bool{
+func (src * DataSource) Connect() os.Error{
   src.valid=false
   src.ctx=avformat_alloc_context();
-  result:=av_open_input_file(src.ctx, src.loc.Filename, nil,0,nil);
+  result:=av_open_input_file(src.ctx, src.Locator.Filename, nil,0,nil);
   if(result!=0){
-    return src.valid
+    return os.ErrorString("file not opened")
   }
   result=av_find_stream_info(src.ctx)
   if(result<0){
-    return src.valid
+    return os.ErrorString("could not find stream info")
   }
   src.valid=true
-  return src.valid;
+  return nil;
 }
 
-func (src * DataSource) Disconnect() bool{
+func (src * DataSource) Disconnect() os.Error{
   if(src.valid){
     av_close_input_file(src.ctx);
   }
-  return true;
+  return nil;
 }
-/*
-func (src * DataSource) GetContentType() string{
-  return "video/ffmpeg";
-}*/
 
 
 func NewDataSource(loc MediaLocator)*DataSource{
-    return &DataSource{loc:loc,ctx:nil,valid:false}
+    return &DataSource{Locator:loc,ctx:nil,valid:false}
 }

@@ -5,7 +5,7 @@ import "unsafe"
 
 type Demultiplexer struct{
   ds DataSource;
-  tracks *[]Track
+  tracks []Track
 }
 //Gets the duration of this media stream when played at the default rate. 
 //Note that each track can have a different duration and a different start time. This method returns the total duration from when the first track starts and the last track ends.
@@ -21,14 +21,14 @@ func (dpx * Demultiplexer)GetTimestamp() Timestamp{
 //A stream can contain multiple media tracks, such as separate tracks for audio and video data.  
 //The Track interface also provides methods for enabling or disabling a track. 
 // returns An array of Track objects. The length of the array is equal to the number of tracks in the stream.
-func (dpx * Demultiplexer)GetTracks()*[]Track{
+func (dpx * Demultiplexer)GetTracks()[]Track{
   scount:=dpx.ds.ctx.ctx.nb_streams
   var result []Track=make([]Track,int(scount))
   for i:=0;i<int(scount);i++ {
     result[i]=Track{&Stream{dpx.ds.ctx.ctx.streams[i]}, make(chan  Packet),0}
   }
-  dpx.tracks=&result;
-  return &result
+  dpx.tracks=result;
+  return result
 }
 
 //Signals that data is going to start being read from the Demultiplexer. 
@@ -42,10 +42,10 @@ func (dpx * Demultiplexer)Start(){
       //av_dup_packet(avpacket)
     }else{
       println("end of file reached, closing channels")
-      for i:=0;i<len(*dpx.tracks);i++ {
+      for i:=0;i<len(dpx.tracks);i++ {
         print("closing channel ")
         println(i)
-        close((*dpx.tracks)[i].stream)
+        close((dpx.tracks)[i].stream)
       }
       break
     }
@@ -61,7 +61,7 @@ func (dpx * Demultiplexer)Start(){
     //re.Pos=int64(packet.avpacket.pos)
     //av_free_packet(packet)
     //runtime.SetFinalizer(packet, av_free_packet)
-    track:=(*dpx.tracks)[avpacket.stream_index]
+    track:=(dpx.tracks)[avpacket.stream_index]
     
     packet:=new(Packet)
     //av_init_packet(packet)
@@ -83,6 +83,10 @@ func (dpx * Demultiplexer)Start(){
   }
   //re * Packet
 }
+func (dpx * Demultiplexer)Stop(){
+    //NOOP
+}
+
 //Creates a new Demutliplexer from a DataSource
 func NewDemultiplexer(ds * DataSource)*Demultiplexer{
     return &Demultiplexer{ds:*ds}
