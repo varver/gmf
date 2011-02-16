@@ -1,6 +1,6 @@
 package main
 
-import "gmf"
+import "gmf.googlecode.com/hg/gmf"
 import "log"
 import "time"
 import "flag"
