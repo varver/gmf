@@ -38,7 +38,7 @@ func TestDecoderTracks(t *testing.T) {
 	source := DataSource{Locator: loc}
 	result := source.Connect()
 	println(result)
-	if result!=nil {
+	if result != nil {
 		t.Fatalf("cold not open file : %s", loc.Filename)
 
 	}
@@ -69,7 +69,7 @@ func TestReadParameters(t *testing.T) {
 
 	source := DataSource{Locator: loc}
 	result := source.Connect()
-	if result!=nil {
+	if result != nil {
 		t.Fatalf("cold not open file : %s", loc.Filename)
 
 	}
@@ -96,7 +96,7 @@ func TestSerializeDecoder(t *testing.T) {
 
 	source := DataSource{Locator: loc}
 	result := source.Connect()
-	if result!=nil {
+	if result != nil {
 		t.Fatalf("cold not open file : %s", loc.Filename)
 
 	}

@@ -1,11 +1,10 @@
 package gmf
-//import "log"
+
 import "fmt"
 
 //A Track abstracts the information specific to an individual track in a media stream. 
 //A media stream might contain multiple media tracks, such as separate tracks for audio, video, and midi data. 
 //A Track is the output of a Demultiplexer. 
-
 type Track struct {
 	*Stream
 	stream   chan Packet
@@ -59,7 +58,6 @@ func (self *Track) WritePacket(p *Packet) bool {
 		self.next_pts = p.Pts.Time
 	}
 	self.next_pts += p.Duration.Time
-	//print(p)
 	self.stream <- *p
 	return true
 }

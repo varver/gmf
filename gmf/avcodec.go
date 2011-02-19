@@ -1,9 +1,8 @@
 package gmf
 
 
-/*go could not map the memory correct from ReSampleContext to AVResampleContext*/
-/*for that case we build this wrapper function with gmf_resample_compensate*/
-
+///*go could not map the memory correct from ReSampleContext to AVResampleContext*/
+///*for that case we build this wrapper function with gmf_resample_compensate*/
 //#include "libavcodec/avcodec.h"
 //ReSampleContext * gmf_audio_resample_init(int output_channels, int input_channels,
 //                                         int output_rate, int input_rate,
@@ -20,15 +19,17 @@ package gmf
 //						return ctx;
 //}
 //void gmf_resample_compensate(ReSampleContext *s, int delta, int distance){
-//av_resample_compensate(*(struct AVResampleContext**)s, delta, distance);
+//  av_resample_compensate(*(struct AVResampleContext**)s, delta, distance);
 //}
 //void gmf_audio_resample_close(ReSampleContext *s){
-//audio_resample_close(s);
+//  audio_resample_close(s);
 //}
 import "C"
-import "unsafe"
-import "sync"
-import "fmt"
+import (
+	"unsafe"
+	"sync"
+	"fmt"
+)
 
 
 var CODEC_TYPE_VIDEO int32 = C.CODEC_TYPE_VIDEO
@@ -60,12 +61,7 @@ func av_audio_resample_init(trgch, srcch, trgrate, srcrate, trgfmt, srcfmt int) 
 		C.int(1),
 		C.int(1),
 		16, 10, 0)
-	//C.check_context(data)
-	fmt.Printf("ReSampleContext Data =%p\n", data)
-	//fmt.Printf("ReSampleContext inputchannels =%d\n",data.input_channels)
 	ctx := ResampleContext{ctx: data}
-	//fmt.Printf("ReSampleContext ctx= %d\n",ctx.ctx)
-
 	return &ctx
 }
 
@@ -105,11 +101,7 @@ type Packet struct {
 	Flags     int
 	Pos       int64
 }
-/*
-type AVFrame struct{
-    C.AVFrame
-}
-*/
+
 type Frame struct {
 	avframe     *C.AVFrame
 	buffer      []byte
@@ -248,6 +240,7 @@ func av_init_packet(packet *Packet) {
 	}
 	C.av_init_packet(packet.avpacket)
 }
+
 func av_init_packet2(packet *avPacket) {
 	//if(packet==nil){
 	//packet=new(AVPacket)
@@ -260,8 +253,6 @@ func av_dup_packet(packet *avPacket) {
 }
 
 func avcodec_find_decoder(codec_id int32) _Codec {
-	//var codec _Codec
-	//codec.codec=C.avcodec_find_decoder(uint32(codec_id))
 	return _Codec{codec: C.avcodec_find_decoder(uint32(codec_id))}
 }
 func avcodec_find_decoder_by_name(name string) _Codec {
@@ -270,8 +261,6 @@ func avcodec_find_decoder_by_name(name string) _Codec {
 	return _Codec{codec: C.avcodec_find_decoder_by_name(cname)}
 }
 func avcodec_find_encoder(codec_id int32) _Codec {
-	//var codec Codec
-	//codec.codec=C.avcodec_find_encoder(uint32(codec_id))
 	return _Codec{codec: C.avcodec_find_encoder(uint32(codec_id))}
 }
 

@@ -77,7 +77,7 @@ func TestMultiplexer(t *testing.T) {
 	loc := MediaLocator{Filename: "../../../test.dvd"}
 	//loc:=MediaLocator{Filename:"/Users/jholscher/Movies/39,90.avi.divx"}
 	source := DataSource{Locator: loc}
-	if source.Connect()!=nil {
+	if source.Connect() != nil {
 		t.Fatalf("cold not open file : %s", loc.Filename)
 	}
 
