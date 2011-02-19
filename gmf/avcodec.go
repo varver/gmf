@@ -19,33 +19,6 @@ package gmf
 //                                         linear, 0.8);
 //						return ctx;
 //}
-//void * gmf_audio_resample_init2(){
-//  void * testmalloc=(void*)malloc(sizeof(10));
-//  void * ctx=av_audio_resample_init(2,2,
-//                                         48000, 44100,
-//                                         1,
-//                                         1,
-//                                         10, 10,
-//                                         0, 0.8);
-//  printf("malloc pointer %p\n", testmalloc);
-////  return ctx;
-//     printf("allocation Resample Context %p\n", ctx);
-////     printf("test allocation Resample Context %p\n", testmalloc);
-////     printf("Resample Context input_format %d\n", ctx->sample_fmt[0]);
-////     printf("Resample Context output_format %d\n", ctx->sample_fmt[1]);
-////     printf("Resample Context input_channels %d\n", ctx->input_channels);
-////     printf("Resample Context output_channels %d\n", ctx->output_channels);
-//						return testmalloc;
-//}
-//ReSampleContext * check_context(void * ctx){
-//     printf("allocation Resample Context %p\n", ctx);
-////     printf("Resample Context input_format %d\n", ctx->sample_fmt[0]);
-////     printf("Resample Context output_format %d\n", ctx->sample_fmt[1]);
-////     printf("Resample Context input_channels %d\n", ctx->input_channels);
-////     printf("Resample Context output_channels %d\n", ctx->output_channels);
-// return 0;
-//}
-//
 //void gmf_resample_compensate(ReSampleContext *s, int delta, int distance){
 //av_resample_compensate(*(struct AVResampleContext**)s, delta, distance);
 //}
