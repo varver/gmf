@@ -23,7 +23,7 @@ func TestReadTracks(t *testing.T) {
 	loc := MediaLocator{Filename: "../../../target/dependency/fixtures/testfile.flv"}
 	//loc:=MediaLocator{"/media/TREKSTOR/videos/20070401 0140 - PREMIERE 3 - Ein Duke kommt selten allein (The Dukes of Hazzard).ts"}
 	source := DataSource{Locator: loc}
-	if source.Connect()!=nil {
+	if source.Connect() != nil {
 		t.Fatalf("cold not open file : %s", loc.Filename)
 	}
 	plex := NewDemultiplexer(&source)

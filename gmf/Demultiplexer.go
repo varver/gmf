@@ -36,7 +36,7 @@ func (dpx *Demultiplexer) GetTracks() []Track {
 func (dpx *Demultiplexer) Start() {
 	avpacket := new(avPacket)
 	av_init_packet2(avpacket)
-	for true {
+	for {
 		if av_read_frame(dpx.ds.ctx, avpacket) < 0 {
 			println("end of file reached, closing channels")
 			for i := 0; i < len(dpx.tracks); i++ {

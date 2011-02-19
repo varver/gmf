@@ -9,7 +9,7 @@ func TestDatasinkConnect(t *testing.T) {
 	//loc:=MediaLocator{Filename:"/media/video/ChocolateFactory.ts"}
 	loc := MediaLocator{Filename: "testsink.flv"}
 	source := DataSink{Locator: loc}
-	if source.Connect()!=nil {
+	if source.Connect() != nil {
 		t.Errorf("cold not open file : %s", loc.Filename)
 	}
 

@@ -1,9 +1,9 @@
 package gmf
 
 import (
+	"fmt"
 	"log"
 	"unsafe"
-	"fmt"
 )
 
 type Decoder struct {

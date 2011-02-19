@@ -9,7 +9,7 @@ func TestDemultiplex(t *testing.T) {
 	//loc:=MediaLocator{Filename:"/media/video/ChocolateFactory.ts"}
 	loc := MediaLocator{Filename: "../../../target/dependency/fixtures/testfile.flv"}
 	source := DataSource{Locator: loc}
-	if source.Connect()!=nil {
+	if source.Connect() != nil {
 		t.Errorf("cold not open file : %s", loc.Filename)
 	}
 	_ = NewDemultiplexer(&source)
@@ -25,7 +25,7 @@ func TestDemultiplexTracks(t *testing.T) {
 	//loc:=MediaLocator{Filename:"/media/video/ChocolateFactory.ts"}
 	loc := MediaLocator{Filename: "../../../target/dependency/fixtures/testfile.flv"}
 	source := DataSource{Locator: loc}
-	if source.Connect()!=nil {
+	if source.Connect() != nil {
 		t.Fatalf("cold not open file : %s", loc.Filename)
 	}
 	plex := NewDemultiplexer(&source)

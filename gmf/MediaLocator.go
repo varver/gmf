@@ -3,8 +3,8 @@ package gmf
 import "strings"
 
 type MediaLocator struct {
-	Filename string
-	Format   string
+	Filename string //The Filename which the Medialocator points to, this can also be an URL
+	Format   string //forces to use the Fileformat, normaly it will be guessed from the Filename
 }
 
 func (loc *MediaLocator) GetProtocol() string {
