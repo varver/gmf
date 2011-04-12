@@ -43,7 +43,7 @@ func url_fopen(ctx *FormatContext, filename string) int {
 }
 
 func url_fclose(ctx *FormatContext) int {
-	return int(C.url_fclose(ctx.ctx.pb))
+	return int(C.avio_close(ctx.ctx.pb))
 }
 
 func av_set_parameters(ctx *FormatContext, params *FormatParameters) int {
@@ -97,7 +97,7 @@ func av_write_trailer(ctx *FormatContext) int {
 }
 
 func dump_format(ctx *FormatContext) {
-	C.dump_format(ctx.ctx, 0, nil, 1)
+	C.av_dump_format(ctx.ctx, 0, nil, 1)
 }
 
 func av_new_stream(ctx *FormatContext, stream_id int) *Stream {
