@@ -39,7 +39,7 @@ func avformat_alloc_context() *FormatContext {
 func url_fopen(ctx *FormatContext, filename string) int {
 	file := C.CString(filename)
 	defer C.free(unsafe.Pointer(file))
-	return int(C.url_fopen(&ctx.ctx.pb, file, C.URL_WRONLY))
+	return int(C.avio_open(&ctx.ctx.pb, file, C.URL_WRONLY))
 }
 
 func url_fclose(ctx *FormatContext) int {
