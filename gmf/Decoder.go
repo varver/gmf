@@ -32,6 +32,10 @@ func (self *Decoder) GetParameters() map[string]string {
 }
 
 func (c *Decoder) Decode(p *Packet) *Frame {
+	if p.Size ==0 {
+	    println("0 size packet in decoder recieved")
+	    return nil
+	}
 	p2 := new(avPacket)
 	av_init_packet2(p2)
 	p2.size = (_Ctype_int)(p.Size)
