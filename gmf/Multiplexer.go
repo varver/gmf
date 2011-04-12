@@ -38,11 +38,11 @@ func (self *Multiplexer) Start() {
 	}*/
 	go func() {
 		for {
-			if closed(self.ch) {
+			p, err := <-self.ch
+			if err  {
 				println("channel closed")
 				break
 			}
-			var p Packet = <-self.ch
 			if p.Size == 0 {
 				log.Printf("0 Size packet in multiplexer received for stream%d:", p.Stream)
 			}

@@ -40,14 +40,14 @@ func (self *Track) GetStartTime() Timestamp {
 
 func (self *Track) ReadPacket(p *Packet) bool {
 	*p = <-self.stream
-	if closed(self.stream) {
+	if p==nil {
 		return false
 	}
 	return true
 }
 
 func (self *Track) WritePacket(p *Packet) bool {
-	if self.stream == nil || closed(self.stream) {
+	if self.stream == nil  {
 		return false
 	}
 	p.Stream = int(self.index)
