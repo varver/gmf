@@ -2,6 +2,9 @@ package gmf
 
 
 //#include "libavformat/avformat.h"
+//AVStream* gmf_get_stream(AVFormatContext *ctx, int idx){
+//  return ctx->streams[idx];
+//}
 import "C"
 import "unsafe"
 import "fmt"
@@ -11,6 +14,10 @@ func init() {
 	C.av_register_all()
 
 	//  C.av_log_set_level(48);
+}
+
+type Streams struct{
+	*C.AVStream
 }
 
 type Stream struct {
@@ -107,3 +114,9 @@ func av_new_stream(ctx *FormatContext, stream_id int) *Stream {
 func av_free_format_context(ctx *FormatContext) {
 	C.av_free(unsafe.Pointer(ctx.ctx))
 }
+
+
+func av_get_stream(ctx *C.AVFormatContext, idx int) *C.AVStream{
+    return C.gmf_get_stream(ctx,C.int(idx))
+}
+

@@ -25,7 +25,8 @@ func (dpx *Demultiplexer) GetTracks() []Track {
 	scount := dpx.ds.ctx.ctx.nb_streams
 	var result []Track = make([]Track, int(scount))
 	for i := 0; i < int(scount); i++ {
-		result[i] = Track{&Stream{dpx.ds.ctx.ctx.streams[i]}, make(chan Packet), 0}
+	//var streams []Stream =dpx.ds.ctx.ctx.streams[]
+		result[i] = Track{&Stream{av_get_stream(dpx.ds.ctx.ctx,i)}, make(chan Packet), 0}
 	}
 	dpx.tracks = result
 	return result
