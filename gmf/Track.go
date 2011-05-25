@@ -1,6 +1,8 @@
 package gmf
 
-import "fmt"
+import( 
+    "fmt"
+    )
 
 //A Track abstracts the information specific to an individual track in a media stream. 
 //A media stream might contain multiple media tracks, such as separate tracks for audio, video, and midi data. 
@@ -39,11 +41,9 @@ func (self *Track) GetStartTime() Timestamp {
 }
 
 func (self *Track) ReadPacket(p *Packet) bool {
-	*p = <-self.stream
-	if p==nil {
-		return false
-	}
-	return true
+	result:=false
+	*p, result =<-self.stream
+	return result
 }
 
 func (self *Track) WritePacket(p *Packet) bool {
