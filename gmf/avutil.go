@@ -4,6 +4,7 @@ package gmf
 //#include "libavcodec/opt.h"
 //#include "libavutil/fifo.h"
 //#include "libavutil/avutil.h"
+//#include "libavutil/samplefmt.h"
 import "C"
 import "unsafe"
 import "fmt"
@@ -126,12 +127,18 @@ func av_fifo_generic_read(fifo *avFifoBuffer, buffer []byte, size int) int {
 func av_get_bits_per_sample_fmt(fmt int32) int {
 	return int(C.av_get_bits_per_sample_fmt(fmt))
 }
+
+
 func av_malloc(size int) []byte {
-	mem := C.av_malloc(C.uint(size))
+	mem := C.av_malloc(C.size_t(size))
 	data := (*(*[1 << 30]byte)(unsafe.Pointer(mem)))[0:size]
 	return data
 }
 
+
+
 func av_free(data []byte) {
 	C.av_free(unsafe.Pointer(&data[0]))
 }
+
+

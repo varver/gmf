@@ -45,10 +45,10 @@ func url_fopen(ctx *FormatContext, filename string) int {
 func url_fclose(ctx *FormatContext) int {
 	return int(C.avio_close(ctx.ctx.pb))
 }
-
+/*
 func av_set_parameters(ctx *FormatContext, params *FormatParameters) int {
 	return int(C.av_set_parameters(ctx.ctx, params.params))
-}
+}*/
 
 func av_guess_format(format, filename string) OutputFormat {
 	result := OutputFormat{}
