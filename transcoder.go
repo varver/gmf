@@ -1,11 +1,13 @@
 package main
 
-import "gmf.googlecode.com/hg/gmf"
-import "log"
-import "time"
-import "flag"
-import "fmt"
-import "os"
+import (
+    "gmf.googlecode.com/hg/gmf"
+    "log"
+    "time"
+    "flag"
+    "fmt"
+    "os"
+    )
 
 
 

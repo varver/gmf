@@ -30,7 +30,7 @@ GOFILES=Datasource.go \
 #PROTOPATH=../../org/esb/rpc/
 #GOFILES=net.go 
 
-CGO_LDFLAGS=-L$(FFMPEG_ROOT)/lib/ -lavcodec -lavutil -lavformat -lavcore -lswscale
+CGO_LDFLAGS=-L$(FFMPEG_ROOT)/lib/ -lavcodec -lavutil -lavformat -lswscale
 CGO_CFLAGS=-I$(FFMPEG_ROOT)/include/
 
 
