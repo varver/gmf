@@ -183,7 +183,7 @@ var avcodec_mutex sync.Mutex
 
 func avcodec_open(cctx _CodecContext, codec _Codec) int {
 	avcodec_mutex.Lock()
-	res := C.avcodec_open(cctx.ctx, codec.codec)
+	res := C.avcodec_open2(cctx.ctx, codec.codec,nil)
 	avcodec_mutex.Unlock()
 	return int(res)
 
@@ -217,7 +217,7 @@ func av_free_codec_context(p *coder) {
 }
 
 func avcodec_alloc_context() *_CodecContext {
-	return &_CodecContext{ctx: C.avcodec_alloc_context()}
+	return &_CodecContext{ctx: C.avcodec_alloc_context3()}
 }
 
 func avcodec_get_context_defaults2(ctx *_CodecContext, codec _Codec) {

@@ -25,7 +25,7 @@ type avOption struct {
 
 func av_set_string(ctx *_CodecContext, key, val string) bool {
 	result := true
-	ckey := C.CString(key)
+	/*ckey := C.CString(key)
 	cval := C.CString(val)
 	defer C.free(unsafe.Pointer(ckey))
 	defer C.free(unsafe.Pointer(cval))
@@ -36,7 +36,7 @@ func av_set_string(ctx *_CodecContext, key, val string) bool {
 			fmt.Printf("option for %s not found!\n", key)
 		}
 		//fmt.Printf("Error while setting option '%s' = '%s'\n", key, val)
-	}
+	}*/
 	return result
 }
 
@@ -44,18 +44,18 @@ func av_get_string(ctx *_CodecContext, name string) string {
 	cname := C.CString(name)
 	defer C.free(unsafe.Pointer(cname))
 	value := make([]byte, 1000)
-	C.av_get_string(unsafe.Pointer(ctx.ctx), cname, nil, (*C.char)(unsafe.Pointer(&value[0])), C.int(len(value)))
+	//C.av_get_string(unsafe.Pointer(ctx.ctx), cname, nil, (*C.char)(unsafe.Pointer(&value[0])), C.int(len(value)))
 	//return string(value[0:len(value)-cap(value)])
 	return string(value)
 }
 
 func av_next_option(ctx *_CodecContext, option *avOption) *avOption {
-	out := avOption{opt: C.av_next_option(unsafe.Pointer(ctx.ctx), option.opt)}
+	/*out := avOption{opt: C.av_next_option(unsafe.Pointer(ctx.ctx), option.opt)}
 	if out.opt != nil {
 		out.Name = C.GoString(out.opt.name)
 		out.Offset = int(out.opt.offset)
-	}
-	return &out
+	}*/
+	return nil
 }
 
 
@@ -125,7 +125,7 @@ func av_fifo_generic_read(fifo *avFifoBuffer, buffer []byte, size int) int {
 }
 
 func av_get_bits_per_sample_fmt(fmt int32) int {
-	return int(C.av_get_bits_per_sample_fmt(fmt))
+	return 0//int(C.av_get_bits_per_sample_fmt(fmt))
 }
 
 

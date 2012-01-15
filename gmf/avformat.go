@@ -71,7 +71,7 @@ func av_guess_format(format, filename string) OutputFormat {
 func av_open_input_file(ctx *FormatContext, filename string, format *InputFormat, bufsize int, params *FormatParameters) int {
 	cfilename := C.CString(filename)
 	//defer C.free(unsafe.Pointer(cfilename))
-	return int(C.av_open_input_file(
+	return int(C.avformat_open_input(
 		&ctx.ctx,
 		cfilename,
 		/*(*C.AVInputFormat)(unsafe.Pointer(&format))*/ nil,
@@ -84,7 +84,7 @@ func av_close_input_file(ctx *FormatContext) {
 }
 
 func av_find_stream_info(ctx *FormatContext) int {
-	return int(C.av_find_stream_info(ctx.ctx))
+	return int(C.avformat_find_stream_info(ctx.ctx))
 }
 
 func av_read_frame(ctx *FormatContext, packet *avPacket) int {
@@ -96,7 +96,7 @@ func av_interleaved_write_frame(ctx *FormatContext, packet *Packet) int {
 }
 
 func av_write_header(ctx *FormatContext) int {
-	return int(C.av_write_header(ctx.ctx))
+	return int(C.avformat_write_header(ctx.ctx))
 }
 
 func av_write_trailer(ctx *FormatContext) int {
