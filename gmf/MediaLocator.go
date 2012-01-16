@@ -8,7 +8,7 @@ type MediaLocator struct {
 }
 
 func (loc *MediaLocator) GetProtocol() string {
-	lines := strings.Split(loc.Filename, ":", -1)
+	lines := strings.Split(loc.Filename, ":")
 	if len(lines) != 2 {
 		return "file"
 	}
@@ -16,7 +16,7 @@ func (loc *MediaLocator) GetProtocol() string {
 }
 
 func (loc *MediaLocator) GetReminder() string {
-	lines := strings.Split(loc.Filename, ":", -1)
+	lines := strings.Split(loc.Filename, ":")
 	if len(lines) != 2 {
 		return loc.Filename
 	}

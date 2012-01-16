@@ -7,7 +7,7 @@ package gmf
 //#include "libavutil/samplefmt.h"
 import "C"
 import "unsafe"
-import "fmt"
+//import "fmt"
 //import "strings"
 
 type avFifoBuffer struct {

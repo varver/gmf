@@ -24,7 +24,7 @@ func (self *Resampler) Init(dec *Decoder, enc *Encoder) os.Error {
 		int(enc.Ctx.ctx.sample_fmt),
 		int(dec.Ctx.ctx.sample_fmt))
 	if self.ctx.ctx == nil {
-		return os.ErrorString("Could not create resample context!")
+		return os.NewError("Could not create resample context!")
 	}
 	self.isize = av_get_bits_per_sample_fmt(dec.Ctx.ctx.sample_fmt) / 8
 	self.osize = av_get_bits_per_sample_fmt(enc.Ctx.ctx.sample_fmt) / 8

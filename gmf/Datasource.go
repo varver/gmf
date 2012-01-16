@@ -1,6 +1,8 @@
 package gmf
 
-import "os"
+import (
+    "os"
+    )
 
 type DataSource struct {
 	Locator MediaLocator
@@ -14,11 +16,11 @@ func (src *DataSource) Connect() os.Error {
 	src.ctx = avformat_alloc_context()
 	result := av_open_input_file(src.ctx, src.Locator.Filename, nil, 0, nil)
 	if result != 0 {
-		return os.ErrorString("file not opened")
+		return os.NewError("file not opened 123"+string(result))
 	}
 	result = av_find_stream_info(src.ctx)
 	if result < 0 {
-		return os.ErrorString("could not find stream info")
+		return os.NewError("could not find stream info")
 	}
 	src.valid = true
 	return nil
