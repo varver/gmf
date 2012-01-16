@@ -75,8 +75,7 @@ func av_open_input_file(ctx *FormatContext, filename string, format *InputFormat
 		&ctx.ctx,
 		cfilename,
 		/*(*C.AVInputFormat)(unsafe.Pointer(&format))*/ nil,
-		C.int(bufsize),
-		/*(*C.AVFormatParameters)(unsafe.Pointer(&params))*/ nil))
+		nil))
 }
 
 func av_close_input_file(ctx *FormatContext) {
@@ -84,7 +83,7 @@ func av_close_input_file(ctx *FormatContext) {
 }
 
 func av_find_stream_info(ctx *FormatContext) int {
-	return int(C.avformat_find_stream_info(ctx.ctx))
+	return int(C.avformat_find_stream_info(ctx.ctx,nil))
 }
 
 func av_read_frame(ctx *FormatContext, packet *avPacket) int {
@@ -96,7 +95,7 @@ func av_interleaved_write_frame(ctx *FormatContext, packet *Packet) int {
 }
 
 func av_write_header(ctx *FormatContext) int {
-	return int(C.avformat_write_header(ctx.ctx))
+	return int(C.avformat_write_header(ctx.ctx,nil))
 }
 
 func av_write_trailer(ctx *FormatContext) int {

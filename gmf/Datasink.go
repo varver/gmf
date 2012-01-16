@@ -20,7 +20,7 @@ func (src *DataSink) Connect() os.Error {
 	result := url_fopen(src.ctx, src.Locator.Filename)
 
 	if result != 0 {
-		return os.ErrorString("file not opened")
+		return os.NewError("file not opened")
 	}
 	src.ctx.ctx.preload = 500000
 	src.ctx.ctx.max_delay = 700000

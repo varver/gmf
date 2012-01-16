@@ -217,7 +217,7 @@ func av_free_codec_context(p *coder) {
 }
 
 func avcodec_alloc_context() *_CodecContext {
-	return &_CodecContext{ctx: C.avcodec_alloc_context3()}
+	return &_CodecContext{ctx: C.avcodec_alloc_context3(nil)}
 }
 
 func avcodec_get_context_defaults2(ctx *_CodecContext, codec _Codec) {

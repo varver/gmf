@@ -1,7 +1,8 @@
 package main
 
 import (
-    "gmf.googlecode.com/hg/gmf"
+    //"gmf.googlecode.com/hg/gmf"
+    "gmf"
     "log"
     "time"
     "flag"
